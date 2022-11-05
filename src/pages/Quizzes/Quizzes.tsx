@@ -32,6 +32,7 @@ export const Quizzes = ({ fetchQuizConfigurations }: any) => {
 
   const [viewedQuizNumber, viewQuizNumber] = useState(1);
   const [isRevealResult, viewAnswers] = useState();
+  const [correctAnswerCount, setCorrectAnswerCount] = useState(0);
 
   const onChangeViewedQuizNumber = (quizNumber: number) => {
     viewQuizNumber(quizNumber);
@@ -47,7 +48,19 @@ export const Quizzes = ({ fetchQuizConfigurations }: any) => {
     return <Empty />;
   }
 
-  const checkResults = () => {
+  const checkResults = (answers) => {
+    const correctAnswerCount = quizzes.reduce(
+      (correctAnswerCount, quiz, quizIndex) => {
+        if (quiz.correctAnswer === answers[quizIndex]) {
+          return correctAnswerCount + 1;
+        }
+
+        return correctAnswerCount;
+      },
+      0
+    );
+    setCorrectAnswerCount(correctAnswerCount);
+
     viewAnswers(true);
   };
 
@@ -92,6 +105,12 @@ export const Quizzes = ({ fetchQuizConfigurations }: any) => {
             />
           )}
         </Form.Item>
+
+        {isRevealResult && (
+          <div class="mb-3">
+            Answer correctly {correctAnswerCount} / {quizzes.length}
+          </div>
+        )}
 
         {!isRevealResult && (
           <Form.Item>
