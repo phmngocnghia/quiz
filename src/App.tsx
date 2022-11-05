@@ -12,7 +12,7 @@ const queryClient = new QueryClient({
 
 export function App() {
   const [fetchQuizConfigurations, setFetchQuizConfigurations] = useState();
-  const [isConfigQuiz, setIsConfigQuiz] = useState(false);
+  const [isConfigQuiz, setIsConfigQuiz] = useState(true);
 
   const onQueryQuiz = (newFetchQuizConfigurations: any) => {
     setFetchQuizConfigurations(newFetchQuizConfigurations);

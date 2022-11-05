@@ -1,9 +1,19 @@
-import { Button, Form, Select } from "antd";
+import { Button, DatePicker, Form, Select, TimePicker } from "antd";
 import { useQuery } from "@tanstack/react-query";
 import { fetchQuizCategories } from "../../services/quiz";
 import { SelectQuizAmount } from "./SelectQuizAmount";
 import { QUIZ_TYPE_OPTIONS } from "./data/quiz-type";
 import { QUIZ_DIFFICULTIES_OPTIONS } from "./data/quiz-difficulty";
+import dayjs from "dayjs";
+
+import dayjsDuration from "dayjs/plugin/duration";
+
+dayjs.extend(dayjsDuration);
+
+const formInitialValues = {
+  amount: 10,
+  duration: dayjs.duration({ minutes: 30 }),
+};
 
 export const ConfigQuiz = ({ onQueryQuiz }: any) => {
   const { isLoading: isLoadingQuizCategories, data: quizCategoryOptions } =
@@ -27,7 +37,7 @@ export const ConfigQuiz = ({ onQueryQuiz }: any) => {
     <>
       <Form
         name="basic"
-        initialValues={{ remember: true }}
+        initialValues={formInitialValues}
         onFinish={onSubmit}
         autoComplete="off"
       >
@@ -50,6 +60,10 @@ export const ConfigQuiz = ({ onQueryQuiz }: any) => {
 
         <Form.Item label="Select type" name="type">
           <Select defaultValue="Any Type" options={QUIZ_TYPE_OPTIONS} />
+        </Form.Item>
+
+        <Form.Item label="Select duration" name="duration">
+          <DatePicker picker="time" mode={undefined} />
         </Form.Item>
 
         <Form.Item>

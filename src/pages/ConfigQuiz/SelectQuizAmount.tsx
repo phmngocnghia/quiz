@@ -53,8 +53,8 @@ export const SelectQuizAmount = () => {
     });
 
   return (
-    <Form.Item label="Select number of quizzes" name="category">
-      <InputNumber min={1} max={10} defaultValue={3} />
+    <Form.Item label="Select number of quizzes" name="amount">
+      <InputNumber min={1} max={10} />
     </Form.Item>
   );
 };

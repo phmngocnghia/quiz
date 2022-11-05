@@ -34,9 +34,9 @@ export const fetchQuizzes = (
 ) => {
   const urlParams = new URLSearchParams();
 
-  Object.entries(fetchQuizzesParams).map(([key, val]) =>
-    urlParams.append(key, val)
-  );
+  Object.entries(fetchQuizzesParams).map(([key, val]) => {
+    if (val) urlParams.append(key, val);
+  });
 
   if (!fetchQuizzesParams.amount) {
     urlParams.append("amount", "50");

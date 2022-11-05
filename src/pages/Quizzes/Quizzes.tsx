@@ -18,13 +18,16 @@ import { TimerCountDown } from "../../components/TimerCountDown";
 dayjs.extend(dayjsDuration);
 
 export const Quizzes = ({ fetchQuizConfigurations }: any) => {
+  const { duration, restFetchQuizConfigurations } = fetchQuizConfigurations;
+  console.log({ duration });
+
   const {
     isLoading: isLoadingQuizzes,
     data: quizzes,
     error,
   } = useQuery({
     queryKey: [],
-    queryFn: () => fetchQuizzes(fetchQuizConfigurations),
+    queryFn: () => fetchQuizzes(restFetchQuizConfigurations),
     select: (data: any = {}) => {
       const { results = [] } = data;
       return results.map((result: any) => ({
@@ -35,6 +38,7 @@ export const Quizzes = ({ fetchQuizConfigurations }: any) => {
       }));
     },
   });
+  console.log({ isLoadingQuizzes });
 
   const [form] = Form.useForm();
 
@@ -75,7 +79,7 @@ export const Quizzes = ({ fetchQuizConfigurations }: any) => {
 
   return (
     <div class={containerStyles}>
-      <TimerCountDown />
+      <TimerCountDown duration={duration} />
       <Pagination
         onChange={viewQuizNumber}
         defaultCurrent={1}

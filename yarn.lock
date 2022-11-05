@@ -439,6 +439,18 @@ ansi-styles@^3.2.1:
   dependencies:
     color-convert "^1.9.0"
 
+antd-dayjs-vite-plugin@^1.2.2:
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/antd-dayjs-vite-plugin/-/antd-dayjs-vite-plugin-1.2.2.tgz#576ad1a14af2084eb92311b78e331cb43a516c16"
+  integrity sha512-4VzXso1OlRFAz5wccSLt4tCMafWFTfu5tWduBCzfbiTfW8w5rAUN8R72Nb47sPu3sfQQJInmuOgDQz+xkGtIfg==
+  dependencies:
+    antd-dayjs-webpack-plugin "^1.0.6"
+
+antd-dayjs-webpack-plugin@^1.0.6:
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/antd-dayjs-webpack-plugin/-/antd-dayjs-webpack-plugin-1.0.6.tgz#7d98bcb51422248b8cd4a32e352a0425a3bffa3a"
+  integrity sha512-UlK3BfA0iE2c5+Zz/Bd2iPAkT6cICtrKG4/swSik5MZweBHtgmu1aUQCHvICdiv39EAShdZy/edfP6mlkS/xXg==
+
 antd@^4.24.1:
   version "4.24.1"
   resolved "https://registry.yarnpkg.com/antd/-/antd-4.24.1.tgz#c002a150fc3f828146f8b0df11ccc1210a824c61"

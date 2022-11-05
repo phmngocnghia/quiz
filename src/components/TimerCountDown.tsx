@@ -1,14 +1,12 @@
-import dayjs from "dayjs";
+import { Dayjs } from "dayjs";
 import { useEffect, useState, useRef } from "preact/hooks";
-import dayjsDuration from "dayjs/plugin/duration";
 
-dayjs.extend(dayjsDuration);
-
-const test = dayjs.duration(2, "seconds");
-
-export const TimerCountDown = (props: { onFinishCountDown: () => void }) => {
-  const { onFinishCountDown } = props;
-  const [timeLeft, setTimeLeft] = useState(test);
+export const TimerCountDown = (props: {
+  onFinishCountDown: () => void;
+  duration: Dayjs;
+}) => {
+  const { onFinishCountDown, duration } = props;
+  const [timeLeft, setTimeLeft] = useState(duration);
   const intervalIdRef = useRef<number>();
 
   useEffect(() => {
