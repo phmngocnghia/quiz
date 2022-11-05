@@ -30,8 +30,6 @@ const deductQuizAmountToMaxAmount = (amount: number) =>
 export const SelectQuizAmount = () => {
   const [form] = Form.useForm();
   const quizCategory = Form.useWatch("category", form);
-  
-  
 
   const { isLoading: isLoadingQuizCategories, data: quizCategoryOptions } =
     useQuery({

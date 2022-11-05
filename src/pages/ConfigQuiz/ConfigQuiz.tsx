@@ -2,15 +2,12 @@
 // category, difficulty, question type and amount
 // loading cate, questions
 
-import { Form, InputNumber, Select } from "antd";
-import {
-  QueryClient,
-  QueryClientProvider,
-  useQuery,
-} from "@tanstack/react-query";
+import { Button, Form, Select } from "antd";
+import { useQuery } from "@tanstack/react-query";
 import { fetchQuizCategories } from "../../services/quiz";
-import { QUIZ_DIFFICULTIES_OPTIONS } from "../../data";
 import { SelectQuizAmount } from "./SelectQuizAmount";
+import { QUIZ_TYPE_OPTIONS } from "./data/quiz-type";
+import { QUIZ_DIFFICULTIES_OPTIONS } from "./data/quiz-difficulty";
 
 /**
 onSubmit
@@ -22,7 +19,7 @@ onSubmit
     any
  */
 
-export const ConfigQuiz = () => {
+export const ConfigQuiz = ({ onQueryQuiz }: any) => {
   const { isLoading: isLoadingQuizCategories, data: quizCategoryOptions } =
     useQuery({
       queryKey: ["quizCategory"],
@@ -36,26 +33,43 @@ export const ConfigQuiz = () => {
       },
     });
 
+  const onSubmit = (queryQuizConfigurations: any) => {
+    onQueryQuiz(queryQuizConfigurations);
+  };
+
   return (
     <>
       <Form
         name="basic"
         initialValues={{ remember: true }}
-        onFinish={() => {}}
+        onFinish={onSubmit}
         autoComplete="off"
       >
         <SelectQuizAmount />
 
-        <Form.Item label="Question category" name="category">
+        <Form.Item label="Select Category" name="category">
           <Select
             loading={isLoadingQuizCategories}
-            defaultValue="lucy"
+            defaultValue="Any Category"
             options={quizCategoryOptions}
           />
         </Form.Item>
 
         <Form.Item label="Select Difficulty" name="difficulty">
-          <Select defaultValue="lucy" options={QUIZ_DIFFICULTIES_OPTIONS} />
+          <Select
+            defaultValue="Any Difficulty"
+            options={QUIZ_DIFFICULTIES_OPTIONS}
+          />
+        </Form.Item>
+
+        <Form.Item label="Select type" name="type">
+          <Select defaultValue="Any Type" options={QUIZ_TYPE_OPTIONS} />
+        </Form.Item>
+
+        <Form.Item>
+          <Button type="primary" htmlType="submit">
+            Generate Quizzes
+          </Button>
         </Form.Item>
       </Form>
     </>

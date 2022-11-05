@@ -1,10 +1,5 @@
 import { Fetcher, opentdbFetcher } from "./fetcher";
 
-/**
-getQuizCategories
-https://opentdb.com/api.php?amount=10&category=9&difficulty=medium&type=multiple
- */
-
 export const fetchQuizCategories = () =>
   opentdbFetcher.query("/api_category.php").catch((error) => {
     console.error(error);
@@ -14,10 +9,6 @@ export const fetchQuizCategories = () =>
     };
   });
 
-/**
-getQuizOptions
-https://opentdb.com/api.php?amount=10&category=9&difficulty=medium&type=multiple
- */
 export const fetchQuizAmount = (categoryId: string) =>
   opentdbFetcher
     .query(`/api_count.php?category=${categoryId}`)
@@ -33,3 +24,23 @@ export const fetchQuizAmount = (categoryId: string) =>
         },
       };
     });
+
+export const fetchQuizzes = (
+  fetchQuizzesParams: {
+    amount?: string;
+    category?: string;
+    difficulty?: string;
+  } = {}
+) => {
+  const urlParams = new URLSearchParams();
+
+  Object.entries(fetchQuizzesParams).map(([key, val]) =>
+    urlParams.append(key, val)
+  );
+
+  if (!fetchQuizzesParams.amount) {
+    urlParams.append("amount", "50");
+  }
+
+  return opentdbFetcher.query(`/api.php?${urlParams.toString()}`);
+};

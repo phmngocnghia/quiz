@@ -1,34 +1,28 @@
-import preactLogo from "./assets/preact.svg";
+import { useState } from "preact/hooks";
 import "antd/dist/antd.css";
-import { createBrowserRouter, RouterProvider, Route } from "react-router-dom";
 import { ConfigQuiz } from "./pages";
-import {
-  QueryClient,
-  QueryClientProvider,
-  useQuery,
-} from "@tanstack/react-query";
-
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <ConfigQuiz />,
-  },
-]);
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { Quizzes } from "./pages/Quizzes";
 
 const queryClient = new QueryClient();
 
-/**
-route
-main 
-
-quizes
-- sync url -> fetch
-
- */
 export function App() {
+  const [fetchQuizConfigurations, setFetchQuizConfigurations] = useState();
+  const [isConfigQuiz, setIsConfigQuiz] = useState(false);
+
+  const onQueryQuiz = (newFetchQuizConfigurations: any) => {
+    setFetchQuizConfigurations(newFetchQuizConfigurations);
+    setIsConfigQuiz(false);
+  };
+
   return (
-    <QueryClientProvider client={queryClient}>
-      <RouterProvider router={router} />;
-    </QueryClientProvider>
+    <div class="container">
+      <QueryClientProvider client={queryClient}>
+        {isConfigQuiz && <ConfigQuiz onQueryQuiz={onQueryQuiz} />}
+        {!isConfigQuiz && (
+          <Quizzes fetchQuizConfigurations={fetchQuizConfigurations} />
+        )}
+      </QueryClientProvider>
+    </div>
   );
 }
