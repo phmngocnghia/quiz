@@ -13,6 +13,7 @@ import dayjsDuration from "dayjs/plugin/duration";
 import dayjs, { duration } from "dayjs";
 import { useCountCorrectAnswer } from "./hooks/useCheckCorrectAnswerNumber";
 import { TimerCountDown } from "../../components/TimerCountDown";
+import shuffle from "lodash.shuffle";
 
 dayjs.extend(dayjsDuration);
 
@@ -32,7 +33,7 @@ export const Quizzes = ({ fetchQuizConfigurations }: any) => {
       return results.map((result: any) => ({
         question: result.question,
         type: result.type,
-        answers: [...result.incorrect_answers, result.correct_answer],
+        answers: shuffle([...result.incorrect_answers, result.correct_answer]),
         correctAnswer: result.correct_answer,
       }));
     },
