@@ -9,7 +9,6 @@ import {
   QuizChoices,
   QuizTrueFalseChoics,
 } from "../../components/QuizChoices/QuizChoices";
-import { Progress } from "antd";
 import dayjsDuration from "dayjs/plugin/duration";
 import dayjs, { duration } from "dayjs";
 import { useCountCorrectAnswer } from "./hooks/useCheckCorrectAnswerNumber";
@@ -38,7 +37,6 @@ export const Quizzes = ({ fetchQuizConfigurations }: any) => {
       }));
     },
   });
-  console.log({ isLoadingQuizzes });
 
   const [form] = Form.useForm();
 

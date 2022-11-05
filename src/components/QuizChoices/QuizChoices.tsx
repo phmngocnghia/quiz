@@ -22,12 +22,14 @@ export const QuizChoices = ({
       <div>
         {answers.map((answer) => {
           const isChecked = answer === value || answer === correctAnswer;
+          const isMissingAnswer = isChecked && !value;
           const isWrongAnswer = isChecked && answer !== correctAnswer;
+          const shouldRenderErrorStyles = isWrongAnswer || isMissingAnswer;
 
           return (
             <Radio
               checked={isChecked}
-              className={isWrongAnswer && radioErrorStyles}
+              className={shouldRenderErrorStyles && radioErrorStyles}
               key={answer}
               value={answer}
             >
