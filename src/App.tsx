@@ -4,7 +4,11 @@ import { ConfigQuiz } from "./pages";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Quizzes } from "./pages/Quizzes";
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: { refetchOnMount: false, refetchOnWindowFocus: false },
+  },
+});
 
 export function App() {
   const [fetchQuizConfigurations, setFetchQuizConfigurations] = useState();

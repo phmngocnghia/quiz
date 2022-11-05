@@ -1,0 +1,11 @@
+.radioErrorStyles {
+  :global {
+    .ant-radio-checked .ant-radio-inner {
+      border-color: red;
+    }
+
+    .ant-radio-inner::after {
+      background: red;
+    }
+  }
+}
