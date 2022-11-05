@@ -48,4 +48,4 @@ export class Fetcher {
   }
 }
 
-export const opentdbFetcher = new Fetcher("https://opentdb.com/");
+export const opentdbFetcher = new Fetcher("https://opentdb.com");

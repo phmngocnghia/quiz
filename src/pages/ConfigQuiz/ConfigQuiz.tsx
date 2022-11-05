@@ -2,13 +2,15 @@
 // category, difficulty, question type and amount
 // loading cate, questions
 
-import { Form, Select } from "antd";
+import { Form, InputNumber, Select } from "antd";
 import {
   QueryClient,
   QueryClientProvider,
   useQuery,
 } from "@tanstack/react-query";
-import { fetchQuizCategories } from "../services/quiz";
+import { fetchQuizCategories } from "../../services/quiz";
+import { QUIZ_DIFFICULTIES_OPTIONS } from "../../data";
+import { SelectQuizAmount } from "./SelectQuizAmount";
 
 /**
 onSubmit
@@ -42,12 +44,18 @@ export const ConfigQuiz = () => {
         onFinish={() => {}}
         autoComplete="off"
       >
+        <SelectQuizAmount />
+
         <Form.Item label="Question category" name="category">
           <Select
             loading={isLoadingQuizCategories}
             defaultValue="lucy"
             options={quizCategoryOptions}
           />
+        </Form.Item>
+
+        <Form.Item label="Select Difficulty" name="difficulty">
+          <Select defaultValue="lucy" options={QUIZ_DIFFICULTIES_OPTIONS} />
         </Form.Item>
       </Form>
     </>
