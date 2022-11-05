@@ -1,8 +1,12 @@
-import { useState } from "preact/hooks";
 import preactLogo from "./assets/preact.svg";
-import "./app.css";
+import "antd/dist/antd.css";
 import { createBrowserRouter, RouterProvider, Route } from "react-router-dom";
 import { ConfigQuiz } from "./pages";
+import {
+  QueryClient,
+  QueryClientProvider,
+  useQuery,
+} from "@tanstack/react-query";
 
 const router = createBrowserRouter([
   {
@@ -10,6 +14,8 @@ const router = createBrowserRouter([
     element: <ConfigQuiz />,
   },
 ]);
+
+const queryClient = new QueryClient();
 
 /**
 route
@@ -20,5 +26,9 @@ quizes
 
  */
 export function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <QueryClientProvider client={queryClient}>
+      <RouterProvider router={router} />;
+    </QueryClientProvider>
+  );
 }
