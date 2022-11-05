@@ -1,23 +1,9 @@
-// form
-// category, difficulty, question type and amount
-// loading cate, questions
-
 import { Button, Form, Select } from "antd";
 import { useQuery } from "@tanstack/react-query";
 import { fetchQuizCategories } from "../../services/quiz";
 import { SelectQuizAmount } from "./SelectQuizAmount";
 import { QUIZ_TYPE_OPTIONS } from "./data/quiz-type";
 import { QUIZ_DIFFICULTIES_OPTIONS } from "./data/quiz-difficulty";
-
-/**
-onSubmit
-   fetch data -> transform
-   redirect Quizes
-   fetch
-    render
-    error
-    any
- */
 
 export const ConfigQuiz = ({ onQueryQuiz }: any) => {
   const { isLoading: isLoadingQuizCategories, data: quizCategoryOptions } =

@@ -2,14 +2,22 @@ import { containerStyles } from "./Quizzes.module.scss";
 import { useQuery } from "@tanstack/react-query";
 import { Radio, Checkbox, Alert, Empty, Button } from "antd";
 import { Pagination, Form } from "antd";
-import { useState } from "preact/hooks";
+import { useEffect, useRef, useState } from "preact/hooks";
 import { fetchQuizzes } from "../../services/quiz";
 import { Spin } from "antd";
-import { QuizChoices, QuizTrueFalseChoics } from "./QuizSingleChoice";
+import {
+  QuizChoices,
+  QuizTrueFalseChoics,
+} from "../../components/QuizChoices/QuizChoices";
+import { Progress } from "antd";
+import dayjsDuration from "dayjs/plugin/duration";
+import dayjs, { duration } from "dayjs";
+import { useCountCorrectAnswer } from "./hooks/useCheckCorrectAnswerNumber";
+import { TimerCountDown } from "../../components/TimerCountDown";
+
+dayjs.extend(dayjsDuration);
 
 export const Quizzes = ({ fetchQuizConfigurations }: any) => {
-  console.log({ fetchQuizConfigurations });
-
   const {
     isLoading: isLoadingQuizzes,
     data: quizzes,
@@ -31,12 +39,7 @@ export const Quizzes = ({ fetchQuizConfigurations }: any) => {
   const [form] = Form.useForm();
 
   const [viewedQuizNumber, viewQuizNumber] = useState(1);
-  const [isRevealResult, viewAnswers] = useState();
-  const [correctAnswerCount, setCorrectAnswerCount] = useState(0);
-
-  const onChangeViewedQuizNumber = (quizNumber: number) => {
-    viewQuizNumber(quizNumber);
-  };
+  const [isRevealResult, viewAnswers] = useState<boolean>();
 
   if (isLoadingQuizzes) {
     return <Spin />;
@@ -48,19 +51,10 @@ export const Quizzes = ({ fetchQuizConfigurations }: any) => {
     return <Empty />;
   }
 
-  const checkResults = (answers) => {
-    const correctAnswerCount = quizzes.reduce(
-      (correctAnswerCount, quiz, quizIndex) => {
-        if (quiz.correctAnswer === answers[quizIndex]) {
-          return correctAnswerCount + 1;
-        }
+  const { correctAnswerCount, countCorrectAnswer } = useCountCorrectAnswer();
 
-        return correctAnswerCount;
-      },
-      0
-    );
-    setCorrectAnswerCount(correctAnswerCount);
-
+  const checkResults = (answers: Record<number, string>) => {
+    countCorrectAnswer(answers, quizzes);
     viewAnswers(true);
   };
 
@@ -81,12 +75,13 @@ export const Quizzes = ({ fetchQuizConfigurations }: any) => {
 
   return (
     <div class={containerStyles}>
+      <TimerCountDown />
       <Pagination
-        onChange={onChangeViewedQuizNumber}
+        onChange={viewQuizNumber}
         defaultCurrent={1}
         total={quizzes.length}
         defaultPageSize={1}
-        className="mb-6"
+        className="mb-6 mt-6"
       />
       <Form layout="vertical" onFinish={checkResults}>
         <Form.Item

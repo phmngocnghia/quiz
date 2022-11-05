@@ -1,36 +1,14 @@
 import { Radio } from "antd";
 
-/**
+import { radioErrorStyles } from "./QuizChoices.module.scss";
 
-contetnt
-
-form 
-
-form item key
-
-state
-answer
-
-
-optional state
-
-answer
-
-group
-
-checked both
-
-write red
-
-color red
-
-no answer no group
-.ant-radio-checked red
-..ant-radio-checked .ant-radio-inner
-import css
-
- */
-import { radioErrorStyles } from "./QuizSingleChoice.module.scss";
+type QuizChoicesProps = {
+  value: string;
+  correctAnswer: string;
+  answers: string[];
+  isReavealResult: boolean;
+  onChange: any;
+};
 
 export const QuizChoices = ({
   value,
@@ -38,7 +16,7 @@ export const QuizChoices = ({
   answers,
   correctAnswer,
   isReavealResult,
-}) => {
+}: QuizChoicesProps) => {
   if (isReavealResult) {
     return (
       <div>
